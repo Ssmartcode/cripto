@@ -1,0 +1,42 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>PROIECT CRIPTARE</title>
+  </head>
+  <body>
+    <header>
+      <h1>PROIECT CRIPTARE</h1>
+      <small>IAST anul II</small>
+    </header>
+    <main>
+      <h2>Introdu textul pentru a fi criptat:</h2>
+      <textarea class="text-encrypt" cols="30" rows="3"></textarea>
+      <div class="buttons">
+        <div class="dropdown">
+          <button class="btn dropdown-btn">Metoda</button>
+          <div class="dropdown-content">
+            <a href="#" id="1">XOR cipher</a>
+            <a href="#" id="2">Metoda 2</a>
+            <a href="#" id="3">Metoda 3</a>
+          </div>
+        </div>
+        <button class="btn encrypt">Criptare</button>
+      </div>
+      <section id="encryption-result">
+        <h2>Text criptat:</h2>
+      </section>
+    </main>
+    <!-- FOOTER -->
+    <footer>Student: Anca Andrei Razvan</footer>
+
+    <!-- SCRIPTUL -->
+    <script src="app.js"></script>
+  </body>
+</html>
