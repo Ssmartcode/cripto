@@ -1,0 +1,17 @@
+header {
+  display: block;
+  text-align: center;
+}
+main .buttons {
+  display: block;
+}
+.btn {
+  width: 100%;
+}
+footer {
+  position: initial;
+}
+
+#encryption-result {
+  height: 150px;
+}

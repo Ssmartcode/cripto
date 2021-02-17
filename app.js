@@ -1,90 +1,72 @@
 "use strict";
+import xorCipher from "./javaFiles/xor.js";
+import caesarCipher from "./javaFiles/caesar.js";
 
+const encryptSpan = document.querySelector(".encrypt-span");
+const decryptSpan = document.querySelector(".decrypt-span");
 const dropDown = document.querySelector(".dropdown");
 const dropDownButton = document.querySelector(".dropdown-btn");
-const encryptButton = document.querySelector(".encrypt");
-const textToEncrypt = document.querySelector(".text-encrypt");
-const resultedEncryption = document.getElementById("encryption-result");
+const cipherButton = document.querySelector(".cipher");
+const inputKey = document.querySelector(".input--key");
+let textToEncrypt = document.querySelector(".input--encrypt");
+let resultedEncryption = document.querySelector(".encrypted-text");
+let headerSmall = document.querySelector("small");
 
-const key = "10010011";
+let action = "encrypt";
+let key = inputKey.value;
 let selectedMethod = {
-  name: "Metoda",
+  name: "Method",
   id: 0,
 };
-const textToBinaryConversion = (char) => {
-  let asciiCode = char.charCodeAt();
-  let binaryCode = "";
-  while (asciiCode >= 1) {
-    binaryCode =
-      asciiCode % 2 === 1
-        ? (binaryCode = "1" + binaryCode)
-        : (binaryCode = "0" + binaryCode);
-    asciiCode = Math.floor(asciiCode / 2);
-  }
-  const missingDigits = 8 - binaryCode.length;
-  for (let i = 0; i < missingDigits; i++) {
-    binaryCode = "0" + binaryCode;
-  }
-  return binaryCode;
-};
 
-const binaryToTextConversion = (binaryChar) => {
-  let decimalChar = 0;
-  const length = binaryChar.length - 1;
-  for (let i = 0; i <= length; i++) {
-    decimalChar += Number(binaryChar[i]) * 2 ** (length - i);
-  }
-  return String.fromCharCode(decimalChar);
+// FUNCTII METODE
+const method1 = (text) => xorCipher(text, key);
+const method2 = (text) => caesarCipher(text, key, action);
+
+//CLEAR BOXEX
+const clear = () => {
+  textToEncrypt.value = "";
+  resultedEncryption.textContent = "";
 };
-const method1 = (text) => text + "-metoda 1";
-const method2 = (text) => text + "-metoda 2";
-const method3 = (text) => text + "-metoda 3";
+// CHANGE HEADER--SMALL TO REFLECT THE  ACTIVE ECNCRYPTION
+const changeHeaderSmall = (text) =>
+  (headerSmall.textContent = `Find more about ${text} method`);
+// LISTENER FOR ENCRYPT/DECRYPT SPAN
+encryptSpan.addEventListener("click", (e) => {
+  clear();
+  encryptSpan.classList.add("current");
+  decryptSpan.classList.remove("current");
+  action = "encrypt";
+  cipherButton.innerHTML = "encrypt";
+});
+decryptSpan.addEventListener("click", (e) => {
+  clear();
+  encryptSpan.classList.remove("current");
+  decryptSpan.classList.add("current");
+  action = "decrypt";
+  cipherButton.innerHTML = "decrypt";
+});
+
+// EVENT LISTENER FOR DROPDOWN BUTTON
 dropDown.addEventListener("click", (e) => {
-  if (e.target.textContent) {
-    selectedMethod = {
-      ...selectedMethod,
-      name: e.target.textContent,
-      id: Number(e.target.id),
-    };
-  }
-  console.log(selectedMethod);
+  const targetedMethod = e.target.textContent;
+  selectedMethod = {
+    ...selectedMethod,
+    name: targetedMethod,
+    id: Number(e.target.id),
+  };
+  changeHeaderSmall(selectedMethod.name);
   dropDownButton.textContent = selectedMethod.name;
 });
 
-encryptButton.addEventListener("click", () => {
+// CHECK WHEN BUTTON FOR ENCRYPTION/DECRYPTION WAS PRESSED
+cipherButton.addEventListener("click", () => {
   const textContent = textToEncrypt.value;
-
+  key = inputKey.value;
   if (selectedMethod.id === 1) {
     resultedEncryption.innerHTML = method1(textContent);
   } else if (selectedMethod.id === 2) {
     resultedEncryption.innerHTML = method2(textContent);
-  } else if (selectedMethod.id === 3) {
-    resultedEncryption.innerHTML = method3(textContent);
   } else {
-    console.log(selectedMethod.id);
   }
 });
-
-function xorEncryption(text, key) {
-  let encryptedText = "";
-  for (let i = 0; i < text.length; i++) {
-    console.log(text[i]);
-    encryptedText += xorCompare(text[i], key);
-  }
-  return encryptedText;
-}
-function xorCompare(char, key) {
-  const binaryChar = textToBinaryConversion(char);
-  let encryptedBinaryChar = "";
-  for (let i = 0; i < binaryChar.length; i++) {
-    binaryChar[i] === key[i]
-      ? (encryptedBinaryChar = "0" + encryptedBinaryChar)
-      : (encryptedBinaryChar = "1" + encryptedBinaryChar);
-    console.log(encryptedBinaryChar);
-  }
-  const encryptedChar = binaryToTextConversion(encryptedBinaryChar);
-  return encryptedChar;
-  
-}
-
-console.log(xorCompare("1", key));
