@@ -1,4 +1,5 @@
-export default xorCipher;
+const invalidKeyMessage = `Encrytption failed!
+Key is not valid! Your key should consist of 8 digits (only 1 and 0)`;
 
 // CARACTER LA BINAR
 const textToBinaryConversion = (char) => {
@@ -48,11 +49,10 @@ function xorCompare(char, key) {
 }
 function xorCipher(text, key) {
   let encryptedText = "";
-  if (!validKey(key))
-    return `Encrytption failed!<br>
-    Key is not valid! Your key should consist of 8 digits (only 1 and 0)`;
+  if (!validKey(key)) return invalidKeyMessage;
   for (let i = 0; i < text.length; i++) {
     encryptedText += xorCompare(text[i], key);
   }
   return encryptedText;
 }
+export default xorCipher;

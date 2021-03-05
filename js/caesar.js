@@ -1,5 +1,5 @@
 const invalidKeyMessage =
-  "Key is not valid.<br> Key should be a number bigger than 0";
+  "Key is not valid. Key should be a number bigger than 0";
 //
 const ceaserCipher = (text, key, action) =>
   action === "encrypt" ? encrypt(text, key) : decrypt(text, key);
@@ -15,6 +15,7 @@ function encrypt(text, key) {
   let asciiChar = 0;
   for (let i = 0; i < text.length; i++) {
     const char = text[i].charCodeAt();
+    console.log(text, char);
     if (char >= "a".charCodeAt() && char <= "z".charCodeAt()) {
       asciiChar = char + key;
       if (asciiChar > "z".charCodeAt()) {
@@ -28,6 +29,7 @@ function encrypt(text, key) {
     } else {
       asciiChar = char;
     }
+    console.log(key);
     encryptedText += String.fromCharCode(asciiChar);
   }
   return encryptedText;
@@ -55,6 +57,7 @@ function decrypt(text, key) {
     }
     decryptedText += String.fromCharCode(asciiChar);
   }
+  console.log(key);
   return decryptedText;
 }
 export default ceaserCipher;
