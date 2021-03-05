@@ -30,7 +30,7 @@ const binaryToTextConversion = (binaryChar) => {
 };
 // CHECK IF KEY IS VALID
 const validKey = (key) => {
-  const binaryType = /^[01]+$/.test(key);
+  const binaryType = /^[01]+$/.test(+key);
   return key.length === 8 && binaryType;
 };
 // COMPAR CARACTERUL SI KEY
@@ -56,3 +56,4 @@ function xorCipher(text, key) {
   return encryptedText;
 }
 export default xorCipher;
+export { validKey };

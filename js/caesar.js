@@ -1,12 +1,12 @@
 const invalidKeyMessage =
-  "Key is not valid. Key should be a number bigger than 0";
+  "Key is not valid. Key should be a number bigger than 0 and less than 26";
 //
 const ceaserCipher = (text, key, action) =>
-  action === "encrypt" ? encrypt(text, key) : decrypt(text, key);
+  action === "encrypt" ? encrypt(text, +key) : decrypt(text, +key);
 
 // CHECK IF KEY IS VALID
 const validKey = (key) => {
-  return isFinite(+key) && +key > 0;
+  return isFinite(key) && key > 0 && key < 26;
 };
 // ENCRYPT FUNCTION
 function encrypt(text, key) {

@@ -1,7 +1,6 @@
 "use strict";
-import xorCipher from "./js/xor.js";
+import xorCipher, { validKey } from "./js/xor.js";
 import caesarCipher from "./js/caesar.js";
-
 const encryptSpan = document.querySelector(".encrypt-span");
 const decryptSpan = document.querySelector(".decrypt-span");
 const dropDown = document.querySelector(".dropdown");
@@ -17,7 +16,7 @@ let selectedMethod = {
   name: "Method",
   id: 0,
 };
-
+console.log(validKey("10011000"));
 //! FUNCTII METODE
 const method1 = (text, key) => xorCipher(text, key);
 const method2 = (text, key) => caesarCipher(text, key, action);
@@ -52,7 +51,6 @@ decryptSpan.addEventListener("click", (e) => {
 dropDown.addEventListener("click", (e) => {
   const targetedMethod = e.target.textContent;
   selectedMethod = {
-    ...selectedMethod,
     name: targetedMethod,
     id: Number(e.target.id),
   };
@@ -63,7 +61,7 @@ dropDown.addEventListener("click", (e) => {
 //! CHECK WHEN BUTTON FOR ENCRYPTION/DECRYPTION WAS PRESSED
 cipherButton.addEventListener("click", () => {
   const textContent = textToEncrypt.value;
-  const key = +inputKey.value;
+  const key = inputKey.value;
   if (selectedMethod.id === 1) {
     resultedEncryption.textContent = method1(textContent, key);
   } else if (selectedMethod.id === 2) {
